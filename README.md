@@ -1,11 +1,12 @@
 # PIECE OF CAKE
-
+![](https://img.thrfun.com/img/146/319/house_cake_x2.jpg)
 ##  OWN A SHARE OF ONTARIO HOUSING MARKET AND START BUILDING YOUR WEALTH NOW!
-#
 
-# Description/Introduction 
+<br />
 
-The PIECE OF CAKE Project is a platform that allows Canadians to start owing a piece of property in Ontario.
+# Description
+
+The **PIECE OF CAKE** Project is a platform that allows Canadians to start owing a piece of property in Ontario.
 
 It has become common knowledge that the Ontario real estate prices have been steadily rising for a number of years, and our data analysis verifies that. This is a POTENTIAL PROBLEM, because not every hard-working individual may be able to afford to being a home-owner. Are Ontarians being priced out of home-ownership?? Is this happening fast or slow? What will the near future-look like for those trying to get on-board?
 
@@ -40,11 +41,11 @@ Here are the key take-aways:
 
 
 # Tech Stack
+## Front end
+- React, Plotly, Bootstrap
 
-- Create a back-end for our app using FastAPI (to create API) and UVicorn (to run a development server)
-- Additionally, for front-end: React, PLotly, and Bootstrap (to enhance the visuals)
-
-
+## Backend
+The backend was created using Python, Pandas, hvplot, PyViz, as well as FastAPI and Uvicorn to serve the data to the front end
 
 # Sources
 
