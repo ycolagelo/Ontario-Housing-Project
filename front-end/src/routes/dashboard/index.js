@@ -1,5 +1,5 @@
 import { Button, Modal } from "antd";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Plot from "react-plotly.js";
 import { Wrapper, DashboardItem } from "./style";
 
@@ -19,16 +19,33 @@ const plotLayout = {
 const Dashboard = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
-  const closeModal = () => {
-    setModalVisible(false);
-  };
+  const [ontario_avg_comp, setOntario_avg_comp] = useState({});
+  const [ontario_avg_comp_modal, setOntario_avg_comp_modal] = useState(false);
+
+  const [rolling_ontario_avg_comp, setRolling_ontario_avg_comp] = useState({});
+  const [rolling_ontario_avg_comp_modal, setRolling_ontario_avg_comp_modal] =
+    useState(false);
+
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/ontario_avg_comp")
+      .then((res) => res.json())
+      .then((data) => {
+        setOntario_avg_comp(data);
+      });
+
+    fetch("http://127.0.0.1:8000/rolling_ontario_avg_comp")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setRolling_ontario_avg_comp(data);
+      });
+  }, []);
 
   return (
     <Wrapper className="neo">
       <Modal
-        open={modalVisible}
-        onCancel={closeModal}
-        onOk={closeModal}
+        open={ontario_avg_comp_modal}
+        onCancel={() => setOntario_avg_comp_modal(false)}
         centered
         width={1200}
         height={800}
@@ -36,32 +53,74 @@ const Dashboard = () => {
         <Plot
           data={[
             {
-              values: [19, 26, 55],
-              labels: ["house 1", "house 2", "house 3"],
-              type: "pie",
+              x: Object.values(ontario_avg_comp.Name || {}),
+              y: Object.values(
+                ontario_avg_comp["Avg_Comp_Benchmark 2005-2022"] || {}
+              ),
+              type: "scatter",
             },
           ]}
-          layout={{ ...plotLayout, width: 500, height: 500 }}
+          layout={plotLayout}
         />
         <h1>Hello world</h1>
-        <p>
-          Contrary to popular belief, Lorem Ipsum is not simply random text. It
-          has roots in a piece of classical Latin literature from 45 BC, making
-          it over 2000 years old. Richard McClintock, a Latin professor at
-          Hampden-Sydney College in Virginia, looked up one of the more obscure
-          Latin words, consectetur, from a Lorem Ipsum passage, and going
-          through the cites of the word in classical literature, discovered the
-          undoubtable source. Lorem Ipsum comes from sections 1.10.32 and
-          1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and
-          Evil) by Cicero, written in 45 BC. This book is a treatise on the
-          theory of ethics, very popular during the Renaissance. The first line
-          of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in
-          section 1.10.32. The standard chunk of Lorem Ipsum used since the
-          1500s is reproduced below for those interested. Sections 1.10.32 and
-          1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also
-          reproduced in their exact original form, accompanied by English
-          versions from the 1914 translation by H. Rackham.
-        </p>
+        <p>hello</p>
+      </Modal>
+      <Modal
+        open={rolling_ontario_avg_comp_modal}
+        onCancel={() => setRolling_ontario_avg_comp_modal(false)}
+        centered
+        width={1200}
+        height={800}
+      >
+        <Plot
+          data={[
+            {
+              x: Object.values(rolling_ontario_avg_comp["Date"] || {}),
+              y: Object.values(
+                rolling_ontario_avg_comp["Apartment_Benchmark"] || {}
+              ),
+              type: "scatter",
+            },
+            {
+              x: Object.values(rolling_ontario_avg_comp["Date"] || {}),
+              y: Object.values(
+                rolling_ontario_avg_comp["Comp_Benchmark"] || {}
+              ),
+              type: "scatter",
+            },
+            {
+              x: Object.values(rolling_ontario_avg_comp["Date"] || {}),
+              y: Object.values(
+                rolling_ontario_avg_comp["One_Storey_Benchmark"] || {}
+              ),
+              type: "scatter",
+            },
+            {
+              x: Object.values(rolling_ontario_avg_comp["Date"] || {}),
+              y: Object.values(
+                rolling_ontario_avg_comp["Single_Family_Benchmark"] || {}
+              ),
+              type: "scatter",
+            },
+            {
+              x: Object.values(rolling_ontario_avg_comp["Date"] || {}),
+              y: Object.values(
+                rolling_ontario_avg_comp["Townhouse_Benchmark"] || {}
+              ),
+              type: "scatter",
+            },
+            {
+              x: Object.values(rolling_ontario_avg_comp["Date"] || {}),
+              y: Object.values(
+                rolling_ontario_avg_comp["Two_Storey_Benchmark"] || {}
+              ),
+              type: "scatter",
+            },
+          ]}
+          layout={plotLayout}
+        />
+        <h1>Hello world</h1>
+        <p>hello</p>
       </Modal>
       <h1>Dashboard</h1>
       <hr />
@@ -84,37 +143,76 @@ const Dashboard = () => {
       </DashboardItem>
       <DashboardItem className="neo">
         <h3>
-          Lorem ipsum{" "}
-          <Button onClick={() => setModalVisible(true)}>Details</Button>
+          Ontario Average Composite
+          <Button onClick={() => setOntario_avg_comp_modal(true)}>
+            Details
+          </Button>
         </h3>
-
-        <Plot
-          data={[
-            {
-              x: ["giraffes", "orangutans", "monkeys"],
-              y: [20, 14, 23],
-              type: "bar",
-            },
-          ]}
-          layout={plotLayout}
-        />
+        {ontario_avg_comp.Name ? (
+          <Plot
+            data={[
+              {
+                x: Object.values(ontario_avg_comp.Name || {}),
+                y: Object.values(
+                  ontario_avg_comp["Avg_Comp_Benchmark 2005-2022"] || {}
+                ),
+                type: "scatter",
+              },
+            ]}
+            layout={plotLayout}
+          />
+        ) : null}
       </DashboardItem>
       <DashboardItem className="neo">
         <h3>
-          Dolor sit{" "}
-          <Button onClick={() => setModalVisible(true)}>Details</Button>
+          Rolling Ontario Average Composite
+          <Button onClick={() => setRolling_ontario_avg_comp_modal(true)}>
+            Details
+          </Button>
         </h3>
 
         <Plot
           data={[
             {
-              x: [1, 2, 3, 4],
-              y: [10, 15, 13, 17],
+              x: Object.values(rolling_ontario_avg_comp["Date"] || {}),
+              y: Object.values(
+                rolling_ontario_avg_comp["Apartment_Benchmark"] || {}
+              ),
               type: "scatter",
             },
             {
-              x: [1, 2, 3, 4],
-              y: [16, 5, 11, 9],
+              x: Object.values(rolling_ontario_avg_comp["Date"] || {}),
+              y: Object.values(
+                rolling_ontario_avg_comp["Comp_Benchmark"] || {}
+              ),
+              type: "scatter",
+            },
+            {
+              x: Object.values(rolling_ontario_avg_comp["Date"] || {}),
+              y: Object.values(
+                rolling_ontario_avg_comp["One_Storey_Benchmark"] || {}
+              ),
+              type: "scatter",
+            },
+            {
+              x: Object.values(rolling_ontario_avg_comp["Date"] || {}),
+              y: Object.values(
+                rolling_ontario_avg_comp["Single_Family_Benchmark"] || {}
+              ),
+              type: "scatter",
+            },
+            {
+              x: Object.values(rolling_ontario_avg_comp["Date"] || {}),
+              y: Object.values(
+                rolling_ontario_avg_comp["Townhouse_Benchmark"] || {}
+              ),
+              type: "scatter",
+            },
+            {
+              x: Object.values(rolling_ontario_avg_comp["Date"] || {}),
+              y: Object.values(
+                rolling_ontario_avg_comp["Two_Storey_Benchmark"] || {}
+              ),
               type: "scatter",
             },
           ]}

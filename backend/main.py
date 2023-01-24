@@ -1,9 +1,11 @@
 from fastapi import FastAPI
+from "../MLS_analysi.ipynb" import plot
+
 app = FastAPI()
 
 @app.get("/")
 def hello():
-  return {"Hello world! 2"}
+  return plot
 
 @app.get("/test")
 def hello():
