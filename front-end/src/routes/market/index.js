@@ -20,7 +20,7 @@ const Market = () => {
       <Listing className="neo2">
         <img src="https://media.istockphoto.com/id/147205632/photo/modern-home-with-swimming-pool.jpg?s=612x612&w=0&k=20&c=sxRQ398SxAjC4FrRombjl46oDGJVdy23T7i3RXO-mww=" />
         <div>
-          <Title>Awesome house</Title>
+          <Title>house one</Title>
           <Progress percent={65} status="active" />
           <Description>
             Lorem ipsum dolor sit amet. Id voluptatem rerum non eaque quia et

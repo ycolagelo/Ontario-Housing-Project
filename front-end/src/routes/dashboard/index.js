@@ -221,7 +221,7 @@ const Dashboard = () => {
       </DashboardItem>
       <DashboardItem className="neo">
         <h3>
-          Constetur amet{" "}
+          Income growth{" "}
           <Button onClick={() => setModalVisible(true)}>Details</Button>
         </h3>
 

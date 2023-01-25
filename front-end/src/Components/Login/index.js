@@ -15,7 +15,7 @@ const LoginPage = (props) => {
 
     login();
   };
-
+ 
   const login = () => {
     setLoading(true);
   };
@@ -24,9 +24,9 @@ const LoginPage = (props) => {
     <div style={{ borderTop: "1px solid transparent" }}>
       <LoginForm style={{ marginTop: props.popup ? 0 : undefined }}>
         <div className="loginContainer">
-          <div className="banner">
+          <div className="banner"> 
             <Header>
-              Welcome to our awesome real estate investment platform
+              <img width="400" src="https://camo.githubusercontent.com/d1f67a3daf9effca4c514fe68137e58cf0e18f19f4919ce1f0112cc1abaa7053/68747470733a2f2f696d672e74687266756e2e636f6d2f696d672f3134362f3331392f686f7573655f63616b655f78322e6a7067" />
             </Header>
           </div>
 
