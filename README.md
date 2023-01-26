@@ -61,7 +61,7 @@ https://www.kaggle.com/datasets/alankmwong/toronto-home-price-index
 
 https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110023901
 
-## Canadian Real Estate Hosuing Prices from 2003 to 2020
+## Canadian Real Estate Housing Prices from 2007 to 2022
 
 https://www.crea.ca/
 
